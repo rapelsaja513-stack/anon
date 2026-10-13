@@ -1,0 +1,298 @@
+}
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0714">
+  <title>AnonChat — Neon Community</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">A</span>
+      <span>Anon<span class="gradient-text">Chat</span></span>
+    </a>
+<div class="topbar-right">
+  <span class="online-indicator"></span>
+  <span id="connectionLabel">Menghubungkan...</span>
+  <button id="adminNav" class="nav-button">👑 Admin</button>
+</div>
+  </header>
+  <main class="app-container">
+    <section id="usernameScreen" class="screen">
+      <div class="welcome-card">
+        <div class="hero-icon">✦</div>
+        <span class="eyebrow">YOUR SPACE. YOUR VOICE.</span>
+        <h1>Welcome to <span class="gradient-text">AnonChat</span></h1>
+        <p class="muted">
+          Ngobrol bebas, kenalan baru, dan jadilah bagian dari komunitas.
+        </p>
+    <form id="usernameForm">
+      <label for="usernameInput">Pilih nama pengguna</label>
+      <input
+        id="usernameInput"
+        type="text"
+        maxlength="24"
+        placeholder="Masukkan nama kamu..."
+        autocomplete="nickname"
+        required
+      >
+      <button class="primary-button full-width" type="submit">
+        Masuk ke Chat <span>→</span>
+      </button>
+    </form>
+    <p class="tiny-note">Tidak perlu email untuk pengguna biasa.</p>
+  </div>
+</section>
+<section id="chatScreen" class="screen hidden">
+  <div class="chat-layout">
+    <aside class="sidebar panel">
+      <div class="sidebar-heading">
+        <div class="sidebar-logo">A</div>
+        <div>
+          <h3>AnonChat</h3>
+          <p class="muted small">Community lounge</p>
+        </div>
+      </div>
+      <div class="channel-item active">
+        <span>#</span>
+        <span>general-chat</span>
+        <span class="channel-live"></span>
+      </div>
+      <div class="sidebar-info">
+        <span class="online-indicator"></span>
+        <span>Chat realtime</span>
+      </div>
+      <div class="profile-card">
+        <div class="avatar" id="myAvatar">U</div>
+        <div class="profile-copy">
+          <strong id="myUsername">Pengguna</strong>
+          <span id="myRole">Member</span>
+        </div>
+        <button id="changeNameButton" class="icon-button" title="Ganti nama">
+          ✎
+        </button>
+      </div>
+      <button id="leaveChatButton" class="secondary-button full-width">
+        Keluar dari chat
+      </button>
+    </aside>
+    <section class="chat-panel panel">
+      <div class="chat-header">
+        <div>
+          <div class="chat-title">
+            <span class="hash-icon">#</span>
+            <h2>general-chat</h2>
+          </div>
+          <p class="muted small">Tempat ngobrol bareng komunitas.</p>
+        </div>
+        <div class="header-badge">✦ PUBLIC</div>
+      </div>
+      <div id="messages" class="messages">
+        <div id="loadingMessages" class="empty-state">
+          <div class="loader"></div>
+          <p>Memuat percakapan...</p>
+        </div>
+      </div>
+      <div id="chatNotice" class="chat-notice hidden"></div>
+      <form id="messageForm" class="message-form">
+        <input
+          id="messageInput"
+          type="text"
+          maxlength="500"
+          placeholder="Tulis pesan..."
+          autocomplete="off"
+          required
+        >
+        <button class="send-button" type="submit" aria-label="Kirim pesan">
+          ➤
+        </button>
+      </form>
+      <div class="input-footer">
+        <span>Jaga obrolan tetap nyaman ✨</span>
+        <span id="characterCount">0 / 500</span>
+      </div>
+    </section>
+  </div>
+</section>
+<section id="adminScreen" class="screen hidden">
+  <div class="admin-container">
+    <button class="back-button" id="backToChatButton">← Kembali ke chat</button>
+    <div class="admin-heading">
+      <div class="admin-heading-icon">♛</div>
+      <div>
+        <span class="eyebrow">CONTROL CENTER</span>
+        <h1>Admin <span class="gradient-text">Panel</span></h1>
+        <p class="muted">Kelola identitas admin dan moderasi pesan.</p>
+      </div>
+    </div>
+    <div id="adminLoginCard" class="panel admin-card">
+      <h2>🔐 Login Administrator</h2>
+      <p class="muted small">
+        Gunakan akun email dan password yang terdaftar di Firebase Authentication.
+      </p>
+      <form id="adminLoginForm">
+        <label for="adminEmail">Email admin</label>
+        <input
+          id="adminEmail"
+          type="email"
+          placeholder="admin@example.com"
+          autocomplete="username"
+          required
+        >
+        <label for="adminPassword">Password</label>
+        <input
+          id="adminPassword"
+          type="password"
+          placeholder="Masukkan password"
+          autocomplete="current-password"
+          required
+        >
+        <button class="primary-button full-width" type="submit">
+          Login Admin →
+        </button>
+      </form>
+      <p id="adminError" class="error-text" role="alert"></p>
+    </div>
+    <div id="adminDashboard" class="hidden">
+      <div class="dashboard-banner">
+        <div>
+          <span class="eyebrow">ACCESS VERIFIED</span>
+          <h2>Selamat datang, <span id="dashboardAdminName">Admin</span> 👑</h2>
+          <p class="muted small">
+            Akun kamu terverifikasi memiliki hak administrator.
+          </p>
+        </div>
+        <span class="verified-badge">✓ ADMIN</span>
+      </div>
+      <div class="admin-grid">
+        <div class="panel admin-card">
+          <h2>🎨 Identitas Admin</h2>
+          <p class="muted small">
+            Nama dan title ini ditampilkan di pesan admin untuk semua pengguna.
+          </p>
+          <div class="preview-box">
+            <span class="preview-label">PREVIEW</span>
+            <div id="adminNamePreview" class="admin-name-preview">
+              Kagi <span class="admin-title-badge">👑 FOUNDER</span>
+            </div>
+          </div>
+          <form id="adminProfileForm">
+            <label for="adminDisplayName">Nama admin</label>
+            <input
+              id="adminDisplayName"
+              type="text"
+              maxlength="24"
+              placeholder="Kagi"
+              required
+            >
+            <label for="adminTitle">Title / jabatan</label>
+            <input
+              id="adminTitle"
+              type="text"
+              maxlength="24"
+              placeholder="FOUNDER"
+              required
+            >
+            <label for="adminBadgeIcon">Ikon title</label>
+            <input
+              id="adminBadgeIcon"
+              type="text"
+              maxlength="8"
+              placeholder="👑"
+            >
+            <label for="adminColor">Warna nama</label>
+            <select id="adminColor">
+              <option value="rainbow">🌈 Rainbow Neon</option>
+              <option value="purple">💜 Purple Neon</option>
+              <option value="blue">💙 Electric Blue</option>
+              <option value="gold">💛 Royal Gold</option>
+              <option value="pink">💗 Pink Neon</option>
+            </select>
+            <button class="primary-button full-width" type="submit">
+              Simpan Identitas
+            </button>
+          </form>
+          <p id="profileStatus" class="status-text" aria-live="polite"></p>
+        </div>
+        <div class="panel admin-card">
+          <h2>🛡️ Moderasi Chat</h2>
+          <p class="muted small">
+            Kamu bisa menghapus pesan melalui tombol hapus di setiap pesan.
+            Penghapusan harus dikonfirmasi.
+          </p>
+          <div class="moderation-info">
+            <span class="moderation-icon">🗑️</span>
+            <div>
+              <strong>Hapus pesan</strong>
+              <p class="muted small">
+                Kembali ke chat dan pilih pesan yang ingin dihapus.
+              </p>
+            </div>
+          </div>
+          <button id="moderateChatButton" class="secondary-button full-width">
+            Buka Chat untuk Moderasi
+          </button>
+          <div class="warning-box">
+            <strong>⚠️ Perhatian</strong>
+            <p class="small">
+              Pesan yang sudah dihapus tidak bisa dipulihkan melalui aplikasi ini.
+            </p>
+          </div>
+          <button id="adminLogoutButton" class="danger-button full-width">
+            Logout Admin
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="rulesScreen" class="screen hidden">
+  <div class="panel rules-card">
+    <button id="rulesBackButton" class="back-button">← Kembali</button>
+    <span class="eyebrow">COMMUNITY GUIDELINES</span>
+    <h1>Aturan <span class="gradient-text">AnonChat</span></h1>
+    <div class="rule-item">
+      <span>01</span>
+      <div>
+        <h3>Hormati pengguna lain</h3>
+        <p class="muted">Jangan melakukan pelecehan atau mengancam pengguna lain.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <span>02</span>
+      <div>
+        <h3>Jangan spam</h3>
+        <p class="muted">Hindari pesan berulang dan konten yang mengganggu.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <span>03</span>
+      <div>
+        <h3>Jaga privasi</h3>
+        <p class="muted">Jangan membagikan informasi pribadi orang lain tanpa izin.</p>
+      </div>
+    </div>
+    <div class="rule-item">
+      <span>04</span>
+      <div>
+        <h3>Moderasi oleh admin</h3>
+        <p class="muted">Admin dapat menghapus pesan yang melanggar aturan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+  <footer class="footer">
+    <span>AnonChat © 2026</span>
+    <button id="rulesNav" class="footer-link">Aturan komunitas</button>
+  </footer>
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+  <script type="module" src="./script.js"></script>
+</body>
+</h
